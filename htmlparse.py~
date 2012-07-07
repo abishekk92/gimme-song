@@ -46,16 +46,16 @@ class HTMLParserHandler(HTMLParser):
 		return self.SongTitle, self.Lyrics
 
 
-#if __name__ == '__main__':
+if __name__ == '__main__':
 
-#	htmlparse = HTMLParserHandler()
+	htmlparse = HTMLParserHandler()
 
-#	file = open("in+the+light_20082112.html", "r")
+	file = open("in+the+light_20082112.html", "r")
 
-#	inp = ' '.join(file.readlines())
+	inp = ' '.join(file.readlines())
 
-#	htmlparse.feed(inp)
+	htmlparse.feed(inp)
 
-#	Title, Lyrics = htmlparse.getData()
+	Title, Lyrics = htmlparse.getData()
 
-#	print 'Title', Title, '\n', ''.join(Lyrics)
+	print 'Title', Title, '\n', ''.join(Lyrics)
