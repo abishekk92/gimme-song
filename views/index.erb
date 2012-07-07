@@ -179,13 +179,13 @@
           <h1>Examples of the Facebook Graph API</h1>
 
           <div class="list">
-            <h3>A few of your friends</h3>
+            <h3>Music that interests you</h3>
             <ul class="friends">
-              <% @friends.each do |friend| %>
+              <% @music.each do |music| %>
                 <li>
                   <a href="#" onclick="window.open('http://www.facebook.com/<%= friend['id']%>')">
-                    <img src="https://graph.facebook.com/<%= friend['id'] %>/picture?type=square" alt="<%= friend['name'] %>">
-                    <%= friend['name'] %>
+                    <img src="https://graph.facebook.com/<%= music['id'] %>/picture?type=square" alt="<%= music['name'] %>">
+                    <%= music['name'] %>
                   </a>
                 </li>
               <% end %>
