@@ -1,5 +1,7 @@
 require "sinatra"
 require 'koala'
+require 'json'
+require 'youtube_search'
 enable :sessions
 set :raise_errors, false
 set :show_exceptions, false 
@@ -106,23 +108,32 @@ get '/upload' do
 erb :upload 
 
 end 
-get '/music/discover' do  
-  
+get '/music/discover/:user' do 
+  current_user=params[:user]
+  interest_graph_json=File.read("user_graph/#{current_user}.json")
+  interest_graph=JSON.parse(interest_graph_json)
+  if interest_graph.empty?
+     @yotube=YoutubeSearch.search('','category'=>'Music','orderby'=>'viewCount',:page=>1,:per_page=>10)
+
+  else 
+  discovery_array=interest_graph.map{ |interest|  interest['name'] }
+  @youtube = discovery_array.map do |search_term|
+        YoutubeSearch.search(search_term).first['video_id'] 
+   end 
+  end 
+  erb :video  
+
 end 
 
 
 post '/upload' do
-File.open('music/' + params['myfile'][:filename],"w") do |f|
+File.open('music/' + 'song_buffer.mp3' ,"w") do |f|
 f.write(params['myfile'][:tempfile].read)
 end
 
 redirect '/music/discover'
 
 end
-get '/foo' do 
 
-"Foo"
-
-end
 
 

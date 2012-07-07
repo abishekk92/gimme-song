@@ -1,0 +1,11 @@
+<html>
+<body>
+<% @youtube.each do |id| %>
+<li>
+<iframe src="http://www.youtube.com/embed/<%=id || id['video_id']%>" width=640 height=480 frameborder=0></iframe>
+</li>
+</li>
+<%end %>
+</body>
+</html>
+

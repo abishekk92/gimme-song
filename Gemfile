@@ -5,5 +5,5 @@ gem "koala"
 gem "json"
 gem "httparty"
 gem "thin"
-#gem "rest_client"
+gem "youtube_search"
 
