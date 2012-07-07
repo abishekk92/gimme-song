@@ -1,7 +1,7 @@
 import subprocess
 import json
 from pprint import pprint
-from HTMLParser import HTMLParser
+
 
 def curlTextProcessing(text):
 
@@ -17,11 +17,10 @@ def curlTextProcessing(text):
 
 	return [data["probability"]["pos"], data["probability"]["neg"], data["probability"]["neutral"]]
 
+#if __name__ == '__main__':
+#	text = "Hey Jude, don't make it bad."
 
-if __name__ == '__main__':
-	text = "Hey Jude, don't make it bad."
+#	l = []
+#	l = curlTextProcessing(text)
 
-	l = []
-	l = curlTextProcessing(text)
-
-	print l
+#	print l
