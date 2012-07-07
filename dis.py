@@ -41,11 +41,13 @@ def calc(title):
 
 	sorted(ans, key=itemgetter(1))
 
-	for i in xrange(5):
-		print ans[i]
+	#for i in xrange(5):
+	#	print ans[i]
 
 	return ans
 
+	#return 'BLAH'
+
 #if __name__ == "__main__":
 
-	#calc("Enter Sandman Lyrics - Metallica")
+#	calc("Enter Sandman Lyrics - Metallica")
