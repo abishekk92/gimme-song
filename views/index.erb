@@ -183,7 +183,7 @@
             <ul class="friends">
               <% @music.each do |music| %>
                 <li>
-                  <a href="#" onclick="window.open('http://www.facebook.com/<%= friend['id']%>')">
+                  <a href="#" onclick="window.open('http://www.facebook.com/<%= music['id']%>')">
                     <img src="https://graph.facebook.com/<%= music['id'] %>/picture?type=square" alt="<%= music['name'] %>">
                     <%= music['name'] %>
                   </a>
