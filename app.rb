@@ -1,22 +1,21 @@
 require "sinatra"
 require 'koala'
-
 enable :sessions
 set :raise_errors, false
-set :show_exceptions, false
+set :show_exceptions, false 
+configure :development do
+ENV["FACEBOOK_APP_ID"]="391867550875701"
+ENV["FACEBOOK_SECRET"]="ba24216257756039c68ad2f050c63f0d"
+end 
 
-# Scope defines what permissions that we are asking the user to grant.
-# In this example, we are asking for the ability to publish stories
-# about using the app, access to what the user likes, and to be able
-# to use their pictures.  You should rewrite this scope with whatever
-# permissions your app needs.
-# See https://developers.facebook.com/docs/reference/api/permissions/
-# for a full list of permissions
 FACEBOOK_SCOPE = 'user_likes,user_photos,user_photo_video_tags,user_interests'
 
 unless ENV["FACEBOOK_APP_ID"] && ENV["FACEBOOK_SECRET"]
   abort("missing env vars: please set FACEBOOK_APP_ID and FACEBOOK_SECRET with your app credentials")
 end
+
+
+interest_graph=Array.new
 
 before do
   # HTTPS redirect
@@ -43,7 +42,7 @@ helpers do
   end
 
   def authenticator
-    @authenticator ||= Koala::Facebook::OAuth.new(ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_SECRET"], url("/auth/facebook/callback"))
+   @authenticator ||= Koala::Facebook::OAuth.new(ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_SECRET"], url("/auth/facebook/callback"))
   end
 
 end
@@ -60,16 +59,20 @@ get "/" do
 
   # Get public details of current application
   @app  =  @graph.get_object(ENV["FACEBOOK_APP_ID"])
-
+  #user_interest_graph=Array.new
   if session[:access_token]
     @user    = @graph.get_object("me")
     @friends = @graph.get_connections('me', 'friends')
     @photos  = @graph.get_connections('me', 'photos')
     @likes   = @graph.get_connections('me', 'likes').first(4)
     @music   = @graph.get_connections('me', 'music')
-    # for other data you can always run fql
     @friends_using_app = @graph.fql_query("SELECT uid, name, is_app_user, pic_square FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1")
+     user_interest_graph = @music.each { |music| music['name'] }
+    
+   File.open('user_graph/'+"#{@user['name']}.json","w") do |f|
+   f.write(user_interest_graph.to_json)
   end
+ end
   erb :index
 end
 
@@ -97,7 +100,29 @@ get '/auth/facebook/callback' do
 	session[:access_token] = authenticator.get_access_token(params[:code])
 	redirect '/'
 end
-get '/music' do 
-  print @music 
+
+get '/upload' do
+
+erb :upload 
+
 end 
+get '/music/discover' do  
+  
+end 
+
+
+post '/upload' do
+File.open('music/' + params['myfile'][:filename],"w") do |f|
+f.write(params['myfile'][:tempfile].read)
+end
+
+redirect '/music/discover'
+
+end
+get '/foo' do 
+
+"Foo"
+
+end
+
 
