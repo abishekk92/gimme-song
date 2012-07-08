@@ -112,19 +112,12 @@ get '/music/discover/:user' do
   current_user=params[:user]
   interest_graph_json=File.read("user_graph/#{current_user}.json")
   interest_graph=JSON.parse(interest_graph_json)
-  if interest_graph.empty?
-     @yotube=YoutubeSearch.search('pink flyod','orderby'=>'viewCount',:page=>1,:per_page=>10)
-
-  else 
-  # threads=[]
   discovery_array=interest_graph.map{ |interest|  interest['name'] }
-  @youtube = discovery_array.map do |search_term|
-     #threads <<   Thread.new(search_term) {|item|
-             YoutubeSearch.search(search_term).first['video_id'] 
-    #}
-   end 
-   #threads.each {|a_thread| a_thread.join}
-  end 
+  @youtube = discovery_array[0..15].map do |search_term|
+               YoutubeSearch.search(search_term).first['video_id'] 
+    
+      end
+  
   erb :video  
 
 end 
