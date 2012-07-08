@@ -47,11 +47,17 @@ def calc(title):
 	return ans
 
 
+
 if __name__ == "__main__":
 
 	calc("Enter Sandman Lyrics - Metallica")
 	#return 'BLAH'
 
-#if __name__ == "__main__":
+if __name__ == "__main__":
+
+	calc("Enter Sandman Lyrics - Metallica")
+
+	#return 'BLAH'
 
 #	calc("Enter Sandman Lyrics - Metallica")
+
