@@ -46,14 +46,12 @@ def calc(title):
 
 	return ans
 
-<<<<<<< HEAD
+
 if __name__ == "__main__":
 
 	calc("Enter Sandman Lyrics - Metallica")
-=======
 	#return 'BLAH'
 
 #if __name__ == "__main__":
 
 #	calc("Enter Sandman Lyrics - Metallica")
->>>>>>> 02b1586f7cbbe77ba97ddc32ea8bbc3fa774061c

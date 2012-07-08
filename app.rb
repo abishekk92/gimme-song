@@ -2,6 +2,8 @@ require "sinatra"
 require 'koala'
 require 'json'
 require 'youtube_search'
+require 'net/http'
+require 'uri'
 enable :sessions
 set :raise_errors, false
 set :show_exceptions, false 
@@ -110,13 +112,28 @@ erb :upload
 end 
 get '/music/discover/:user' do 
   current_user=params[:user]
+  #sentiment=compute_sentiment("http://192.168.1.1")
   interest_graph_json=File.read("user_graph/#{current_user}.json")
   interest_graph=JSON.parse(interest_graph_json)
   discovery_array=interest_graph.map{ |interest|  interest['name'] }
+  #sentiment_array=sentiment.map{|key,value| song['value'] }
+  #discovery_array=discovery_array+sentiment_array
   @youtube = discovery_array[0..15].map do |search_term|
                YoutubeSearch.search(search_term).first['video_id'] 
     
-      end
+   end
+def compute_sentiment(api_uri)
+uri=URI.parse(api_uri)
+http=Net::HTTP.new(uri.host,uri.port)
+request=Net::HTTP::Get.new(uri.request_uri)
+response=http.request(request)
+
+json_response= response.body
+
+return JSON.parse(json_response)
+
+end 
+
   
   erb :video  
 
@@ -131,6 +148,5 @@ end
 redirect '/music/discover'
 
 end
-
 
 
