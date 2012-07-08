@@ -48,14 +48,9 @@ def calc(title):
 
 
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
 
-	calc("Enter Sandman Lyrics - Metallica")
-	#return 'BLAH'
-
-if __name__ == "__main__":
-
-	calc("Enter Sandman Lyrics - Metallica")
+	#calc("Enter Sandman Lyrics - Metallica")
 
 	#return 'BLAH'
 
