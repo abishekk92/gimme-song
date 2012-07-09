@@ -8,9 +8,9 @@ if __name__ == '__main__':
 
 	htmlparser = htmlparse.HTMLParserHandler()
 
-	onlyfiles = [f for f in listdir("/home/omega9/Songs")]
+	onlyfiles = [f for f in listdir("/home/abishek/gimmesong/Songs/")]
 
-	dir = "/home/omega9/Songs/"
+	dir = "/home/abishek/gimmesong/Songs/"
 
 	fr = open("values", "w")
 
